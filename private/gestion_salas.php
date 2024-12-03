@@ -1,51 +1,56 @@
 <?php
+
 include_once '../db/conexion.php';
+
+// Verificar si el usuario está logueado
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header("Location: ../index.php");
     exit();
 }
+
+// Comprobar si la solicitud es POST y si el parámetro 'sala' está presente
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sala'])) {
     $sala = $_POST['sala'];
+
     try {
-        $query = "SELECT id_sala FROM tbl_sala WHERE nombre_sala = ?";
-        $stmt = mysqli_prepare($conn, $query);
-        mysqli_stmt_bind_param($stmt, "s", $sala);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
-        if ($row = mysqli_fetch_assoc($result)) {
+        // Conectar a la base de datos con PDO
+        $stmt = $conexion->prepare("SELECT id_sala FROM tbl_sala WHERE nombre_sala = ?");
+        $stmt->execute([$sala]);
+
+        // Obtener el ID de la sala
+        $id_sala = null;
+        if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $id_sala = $row['id_sala'];
-            $queryMesas = "SELECT * FROM tbl_mesa WHERE id_sala = ?";
-            $stmtMesas = mysqli_prepare($conn, $queryMesas);
-            mysqli_stmt_bind_param($stmtMesas, "i", $id_sala);
-            mysqli_stmt_execute($stmtMesas);
-            $resultMesas = mysqli_stmt_get_result($stmtMesas);
-            $mesas = [];
-            while ($mesa = mysqli_fetch_assoc($resultMesas)) {
-                $mesas[] = $mesa;
+
+            // Consultar las mesas asociadas a la sala
+            $stmtMesas = $conexion->prepare("SELECT * FROM tbl_mesa WHERE id_sala = ?");
+            $stmtMesas->execute([$id_sala]);
+            $mesas = $stmtMesas->fetchAll(PDO::FETCH_ASSOC);
+
+            // Mostrar las mesas
+            if ($mesas) {
+                foreach ($mesas as $mesa) {
+                    // Aquí podrías hacer algo con los datos de las mesas, por ejemplo, mostrarlas.
+                }
+            } else {
+                echo "No hay mesas en esta sala.";
             }
-            mysqli_stmt_close($stmtMesas);
+
         } else {
             echo "No se ha encontrado ninguna sala con el nombre especificado.";
         }
 
-        $queryVerCapacidad = "SELECT capacidad_total FROM tbl_sala WHERE nombre_sala = ?";
-        $stmtVerCapacidad = mysqli_prepare($conn, $queryVerCapacidad);
-        mysqli_stmt_bind_param($stmtVerCapacidad, "s", $sala);
-        mysqli_stmt_execute($stmtVerCapacidad);
-        $resultCapacidad = mysqli_stmt_get_result($stmtVerCapacidad);
-        if ($row = mysqli_fetch_assoc($resultCapacidad)) {
+        // Consultar la capacidad total de la sala
+        $stmtCapacidad = $conexion->prepare("SELECT capacidad_total FROM tbl_sala WHERE nombre_sala = ?");
+        $stmtCapacidad->execute([$sala]);
+
+        if ($row = $stmtCapacidad->fetch(PDO::FETCH_ASSOC)) {
             echo "<h2 style='text-align: center;'>Capacidad total de la sala: " . $row['capacidad_total'] . "</h2>";
         } else {
             echo "No se encontró la sala especificada.";
         }
-
-        mysqli_stmt_close($stmtVerCapacidad);
-        mysqli_stmt_close($stmt);
-    } catch (Exception $e) {
+    } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
     }
-    echo "<form action='../validacion/reservaMesas.php' method='post'>";
-        echo "<input type='hidden' name='id_sala' value='" . $id_sala . "'>";
-        echo "<button type='submit' class='select-button name='reserva-todo'> Reservar Todo</button>";
-    echo "</form>";
 }
+

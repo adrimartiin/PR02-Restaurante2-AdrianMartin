@@ -1,23 +1,23 @@
-    document.getElementById("codigo_empleado").onblur = validaCodigoCamarero;
+    document.getElementById("nombre_usuario").onblur = validaUsername;
     document.getElementById("pwd").onblur = validaPassword;
     document.getElementById("loginForm").onsubmit = validaForm;
     
-    function validaCodigoCamarero() {
-    let codigo_empleado = document.getElementById("codigo_empleado").value;
-    let input_empleado = document.getElementById("codigo_empleado");
-    let codigoError = document.getElementById("codigo_empleado_error");
+    function validaUsername() {
+    let nombre_usuario = document.getElementById("nombre_usuario").value;
+    let input_username = document.getElementById("nombre_usuario");
+    let error_username = document.getElementById("error_username");
 
-    if(codigo_empleado === "" || codigo_empleado === null){
-        codigoError.textContent = "El código de empleado es obligatorio.";
-        input_empleado.classList.add("error-border");
+    if(nombre_usuario === "" || nombre_usuario === null){
+        error_username.textContent = "El nombre de usuario es obligatorio.";
+        input_username.classList.add("error-border");
         return false;
-    } else if(codigo_empleado.length < 4){
-        codigoError.textContent = "El código de empleado debe tener 4 caracteres mínimo.";
-        input_empleado.classList.add("error-border");
+    } else if(nombre_usuario.length < 4){
+        error_username.textContent = "El nombre de usuario debe tener 4 caracteres mínimo.";
+        input_username.classList.add("error-border");
         return false;
     } else {
-        codigoError.textContent = "";
-        input_empleado.classList.remove("error-border");
+        error_username.textContent = "";
+        input_username.classList.remove("error-border");
         return true;
     }
     }
@@ -48,7 +48,7 @@
 
     function validaForm(event) {
     event.preventDefault();
-    if (validaCodigoCamarero() && validaPassword()) {
+    if (validaUsername() && validaPassword()) {
         document.getElementById("loginForm").submit(); 
     }
     }

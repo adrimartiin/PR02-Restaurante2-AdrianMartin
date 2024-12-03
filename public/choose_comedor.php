@@ -28,7 +28,7 @@ if (!isset($_SESSION['loggedin'])) {
                 <a href="../private/logout.php">Cerrar Sesión</a>
             </div>
         </div>
-        <span><?php echo $_SESSION['nombre_usuario']; ?></span>
+        <span><?php echo $_SESSION['username']; ?></span>
     </div>
 </div>
 

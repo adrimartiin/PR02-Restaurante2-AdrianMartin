@@ -1,13 +1,10 @@
 <?php
-$dbserver = "localhost";
-$dbusername = "root";
-$dbpassword = "";
-$dbname = "elmanantial";
-
-try {
-    $conn = @mysqli_connect($dbserver, $dbusername, $dbpassword, $dbname);
-}
-catch (Exception $e) {
-    echo "Error de conexión: ". $e->getMessage();
-    die();
+ $host = "localhost";
+ $nombreBD = "bd_restaurante";
+ $userBD = "root";
+ $passBD  = "";
+try{
+    $conexion = new PDO("mysql:host=$host;dbname=$nombreBD", $userBD, $passBD);
+} catch (PDOException $e){
+    echo $e->getMessage();
 }
