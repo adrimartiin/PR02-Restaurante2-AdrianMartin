@@ -8,7 +8,7 @@ if (!isset($_SESSION['loggedin'])) {
 }
 $sala='';
 $mesas = [];
-include_once '../private/gestion_salas.php';
+include_once '../procesos/gestion_salas.php';
 
 
 ?>
