@@ -123,6 +123,51 @@ INSERT INTO tbl_sala (nombre_sala, id_tipo_sala, capacidad_total) VALUES
 ('Sala Privada Familiar', 3, 12),
 ('Sala Privada Eventos', 3, 20);
 
+/* ESTADOS DE SILLA */
+INSERT INTO tbl_estado_silla (estado) VALUES
+('Libre'),
+('Ocupada'),
+('Reservada');
+
+/* MESAS */
+-- Mesas en cada sala, solo una por sala
+INSERT INTO tbl_mesa (id_sala, num_sillas_mesa, estado_mesa) VALUES
+-- Terrazas
+(1, 4, 'libre'), -- Mesa para Terraza Norte
+(2, 6, 'libre'), -- Mesa para Terraza Sur
+(3, 4, 'libre'), -- Mesa para Terraza Este
+-- Comedores
+(4, 8, 'libre'), -- Mesa para Comedor Principal
+(5, 10, 'libre'), -- Mesa para Comedor Secundario
+-- Salas Privadas
+(6, 6, 'libre'), -- Mesa para Sala Privada VIP
+(7, 8, 'libre'), -- Mesa para Sala Privada Ejecutivo
+(8, 6, 'libre'), -- Mesa para Sala Privada Familiar
+(9, 10, 'libre'); -- Mesa para Sala Privada Eventos
+
+/* SILLAS */
+-- Cada mesa tiene sus sillas asignadas
+INSERT INTO tbl_silla (id_mesa, id_estado_silla) VALUES
+-- Sillas para Mesa 1 (Terraza Norte)
+(1, 1), (1, 1), (1, 1), (1, 1),
+-- Sillas para Mesa 2 (Terraza Sur)
+(2, 2), (2, 2), (2, 2), (2, 2), (2, 2), (2, 2),
+-- Sillas para Mesa 3 (Terraza Este)
+(3, 3), (3, 3), (3, 3), (3, 3),
+-- Sillas para Mesa 4 (Comedor Principal)
+(4, 1), (4, 1), (4, 1), (4, 1), (4, 1), (4, 1), (4, 1), (4, 1),
+-- Sillas para Mesa 5 (Comedor Secundario)
+(5, 2), (5, 2), (5, 2), (5, 2), (5, 2), (5, 2), (5, 2), (5, 2), (5, 2), (5, 2),
+-- Sillas para Mesa 6 (Sala Privada VIP)
+(6, 1), (6, 1), (6, 1), (6, 1), (6, 1), (6, 1),
+-- Sillas para Mesa 7 (Sala Privada Ejecutivo)
+(7, 2), (7, 2), (7, 2), (7, 2), (7, 2), (7, 2), (7, 2), (7, 2),
+-- Sillas para Mesa 8 (Sala Privada Familiar)
+(8, 3), (8, 3), (8, 3), (8, 3), (8, 3), (8, 3),
+-- Sillas para Mesa 9 (Sala Privada Eventos)
+(9, 1), (9, 1), (9, 1), (9, 1), (9, 1), (9, 1), (9, 1), (9, 1), (9, 1), (9, 1);
+
+
 
 
 
