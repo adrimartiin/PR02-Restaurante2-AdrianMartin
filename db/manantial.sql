@@ -16,6 +16,7 @@ CREATE TABLE tbl_sala (
     nombre_sala VARCHAR(50) NOT NULL,
     id_tipo_sala INT NOT NULL,
     capacidad_total INT NOT NULL,
+    num_mesas_sala INT NOT NULL,
     FOREIGN KEY (id_tipo_sala) REFERENCES tbl_tipo_sala(id_tipo_sala)
 );
 
@@ -109,19 +110,20 @@ INSERT INTO tbl_tipo_sala (tipo_sala) VALUES ('Terraza');
 INSERT INTO tbl_tipo_sala (tipo_sala) VALUES ('Sala Privada');
 
 /* INSERTS PARA SALAS DENTRO DE TIPOS DE SALA */
-INSERT INTO tbl_sala (nombre_sala, id_tipo_sala, capacidad_total) VALUES 
--- Terrazas
-('Terraza Norte', 2, 30),
-('Terraza Sur', 2, 25),
-('Terraza Central', 2, 40),
--- Comedores
-('Comedor Principal', 1, 50),
-('Comedor Secundario', 1, 35),
--- Salas Privadas
-('Sala Privada VIP', 3, 10),
-('Sala Privada Ejecutivo', 3, 15),
-('Sala Privada Familiar', 3, 12),
-('Sala Privada Eventos', 3, 20);
+INSERT INTO tbl_sala (nombre_sala, id_tipo_sala, capacidad_total, num_mesas_sala) VALUES 
+
+('Terraza Norte', 2, 30, 10),  
+('Terraza Sur', 2, 25, 8),    
+('Terraza Central', 2, 40, 12),  
+
+
+('Comedor Principal', 1, 50, 10),  
+('Comedor Secundario', 1, 35, 8), 
+
+('Sala Privada VIP', 3, 10, 1),  
+('Sala Privada Ejecutivo', 3, 15, 1),  
+('Sala Privada Familiar', 3, 12, 1),  
+('Sala Privada Eventos', 3, 20, 1);  
 
 /* ESTADOS DE SILLA */
 INSERT INTO tbl_estado_silla (estado) VALUES
