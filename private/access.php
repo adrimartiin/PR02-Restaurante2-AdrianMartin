@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 unset($_SESSION['pwd']);
                 unset($_SESSION['error']);
 
-                header("Location: ../public/dashboard.php");
+                header("Location: ../procesos/procDashboard.php");
                 exit();
             } else {
                 $_SESSION['error'] = "Los datos introducidos son incorrectos.";
