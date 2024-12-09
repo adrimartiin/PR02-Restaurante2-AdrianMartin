@@ -2,14 +2,14 @@
 session_start();
 include_once '../db/conexion.php';
 
-// Verificar si el usuario está logueado
+// Verificar si el u    suario está logueado
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header("Location: ../index.php");
     exit();
 }
 
 // Archivo de filtrado
-include_once 'filtros.php'; 
+include_once 'filtros.php';
 ?>
 
 <html lang="en">
@@ -30,6 +30,12 @@ include_once 'filtros.php';
         <a href="../admin/dashboardAdmin.php">
             <img src="../img/icon.png" class="icon" alt="Icono">
         </a>
+
+        <!-- Icono de menú hamburguesa (solo visible en pantallas pequeñas) -->
+        <div id="hamburger-icon" class="d-block d-md-none">
+            <i class="fas fa-bars"></i> <!-- Icono de hamburguesa de FontAwesome -->
+        </div>
+
         <form class="d-flex align-items-center" method="GET" action="">
             <input type="text" name="usuario" class="form-control form-control-sm me-2" placeholder="Usuario">
             <input type="text" name="nombre" class="form-control form-control-sm me-2" placeholder="Nombre">
@@ -40,7 +46,9 @@ include_once 'filtros.php';
                 <i class="fas fa-trash-alt"></i>
             </button>
         </form>
+
         <div class="d-flex align-items-center">
+        <form class="d-flex align-items-center" method="GET" action="">
             <a href="../acciones/crear_usuario.php" class="btn btn-primary btn-sm me-3">Crear Usuario</a>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
@@ -51,7 +59,22 @@ include_once 'filtros.php';
                     <li><a class="dropdown-item" href="../private/logout.php">Cerrar Sesión</a></li>
                 </ul>
             </div>
+            </form>
         </div>
+    </div>
+
+    <!-- Menú para dispositivos móviles -->
+    <div class="mobile-nav" id="mobile-nav">
+        <input type="text" name="usuario" class="form-control form-control-sm me-2" placeholder="Usuario">
+            <input type="text" name="nombre" class="form-control form-control-sm me-2" placeholder="Nombre">
+            <button type="submit" class="btn btn-primary btn-sm me-3">
+                <i class="fas fa-search"></i>
+            </button>
+            <button type="reset" class="btn btn-danger">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+        <a href="#"><?php echo $_SESSION['username']; ?></a>
+        <a href="../private/logout.php">Cerrar Sesión</a>
     </div>
 
     <h3 id="titulo">Gestión de Usuarios</h3>

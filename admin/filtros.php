@@ -7,7 +7,7 @@ $nombre_filter = isset($_GET['nombre']) ? $_GET['nombre'] : '';
 $sql = "SELECT id_usuario, nombre_usuario, nombre_real_usuario, nombre_rol 
         FROM tbl_usuario 
         INNER JOIN tbl_rol ON tbl_usuario.id_rol = tbl_rol.id_rol
-        WHERE nombre_usuario LIKE :usuario AND nombre_real_usuario LIKE :nombre";
+        WHERE nombre_usuario LIKE :usuario AND nombre_real_usuario LIKE :nombre ORDER BY nombre_rol ASC";
 
 // uso bindValue para enlazar un valor a un parámetro de una consulta
 $stmt = $conexion->prepare($sql);
