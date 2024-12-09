@@ -154,6 +154,16 @@ body {
     background-size: cover;
     background-position: center;
 }
+.option.users {
+    background-image: url('../img/usuarios_fondo.jpg');
+    background-size: cover;
+    background-position: center;
+}
+.option.recursos {
+    background-image: url('../img/recursos_fondo.jpg');
+    background-size: cover;
+    background-position: center;
+}
 
 .extra-buttons {
     display: none;
