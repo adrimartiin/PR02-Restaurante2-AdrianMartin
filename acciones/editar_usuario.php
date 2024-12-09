@@ -70,21 +70,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="../css/users.css">
 </head>
 
 <body>
     <div class="container mt-5">
         <h2>Editar Usuario</h2>
-        <form method="POST">
+        <form method="POST" id="edit_form">
             <div class="mb-3">
                 <label for="nombre_usuario" class="form-label">Nombre de Usuario</label>
                 <input type="text" class="form-control" id="nombre_usuario" name="nombre_usuario"
                     value="<?php echo htmlspecialchars($user['nombre_usuario']); ?>">
+                    <span class="error-message" id="error_nombre_usuario"></span>
             </div>
             <div class="mb-3">
                 <label for="nombre_real_usuario" class="form-label">Nombre Real</label>
                 <input type="text" class="form-control" id="nombre_real_usuario" name="nombre_real_usuario"
                     value="<?php echo htmlspecialchars($user['nombre_real_usuario']); ?>">
+                    <span class="error-message" id="error_nombre_real"></span>
             </div>
             <div class="mb-3">
                 <label for="password_usuario" class="form-label">Contraseña</label>
@@ -103,6 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         echo "<option value='{$rol['id_rol']}' $selected>{$rol['nombre_rol']}</option>";
                     }
                     ?>
+                    <span class="error-message" id="error_rol"></span>
                 </select>
             </div>
             <button type="submit" class="btn btn-primary">Actualizar</button>
@@ -122,7 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             });
         </script>
     <?php endif; ?>
-
+    <script src="../js/validaEditar.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

@@ -8,8 +8,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 }
 
 // Inicializar variables de comprobación de creación de usuarios a false inicialmente
-$usuario_creado = false; 
-$usuario_existente = false; 
+$usuario_creado = false;
+$usuario_existente = false;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Recibe los datos del formulario saneados
@@ -65,22 +65,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="container mt-5">
         <h2>Crear Nuevo Usuario</h2>
-        <form method="POST">
+        <form method="POST" id="insertForm">
             <div class="mb-3">
                 <label for="nombre_usuario" class="form-label">Nombre de Usuario</label>
-                <input type="text" class="form-control" id="nombre_usuario" name="nombre_usuario" required>
+                <input type="text" class="form-control" id="nombre_usuario" name="nombre_usuario">
+                <span class="error-message" id="error_nombre_usuario"></span>
             </div>
             <div class="mb-3">
                 <label for="nombre_real_usuario" class="form-label">Nombre Real</label>
-                <input type="text" class="form-control" id="nombre_real_usuario" name="nombre_real_usuario" required>
+                <input type="text" class="form-control" id="nombre_real_usuario" name="nombre_real_usuario">
+                <span class="error-message" id="error_nombre_real"></span>
             </div>
             <div class="mb-3">
                 <label for="password_usuario" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="password_usuario" name="password_usuario" required>
+                <input type="password" class="form-control" id="password_usuario" name="password_usuario">
+                <span class="error-message" id="error_pwd"></span>
             </div>
             <div class="mb-3">
                 <label for="id_rol" class="form-label">Rol</label>
-                <select class="form-select" id="id_rol" name="id_rol" required>
+                <select class="form-select" id="id_rol" name="id_rol">
                     <?php
                     // Obtener roles disponibles
                     $stmt = $conexion->query("SELECT * FROM tbl_rol");
@@ -89,6 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         echo "<option value='{$rol['id_rol']}'>{$rol['nombre_rol']}</option>";
                     }
                     ?>
+                    <span class="error-message" id="error_rol"></span>
                 </select>
             </div>
             <button type="submit" class="btn btn-primary">Crear Usuario</button>
@@ -125,5 +129,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </script>
 
 </body>
+<script src="../js/validaCrear.js"></script>
 
 </html>
