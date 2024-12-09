@@ -22,12 +22,12 @@ body {
 .user-info {
     display: flex;
     align-items: center;
-    justify-content: center; /* Centrar horizontalmente el nombre de usuario */
+    justify-content: center;
 }
 
 .username {
     margin-left: 10px;
-    text-align: center; /* Asegura que el texto sea centrado */
+    text-align: center;
     font-weight: bold;
     color: #fff;
 }
@@ -91,22 +91,57 @@ body {
     border-bottom: none;
 }
 
-#titulo{
+#titulo {
     text-align: center;
 }
 
+.error-message {
+    color: red !important;
+}
+
+.error-border {
+    border: 1px solid red !important ;
+}
+/* Estilo para dispositivos móviles */
 @media (max-width: 768px) {
     .hamburger {
-        display: block;
+        display: block; /* Mostrar ícono de hamburguesa */
     }
 
-    .user-info {
-        display: none;
+    /* Ocultar los elementos de la barra de navegación en pantallas pequeñas */
+    .navbar .user-info,
+    .navbar form,
+    .navbar .btn {
+        display: none; /* Ocultar los campos de la barra de navegación */
     }
 
     .mobile-nav.active {
-        display: flex;
+        display: flex; /* Mostrar el menú móvil solo cuando se active */
+    }
+
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar form {
+        margin-top: 10px;
+        width: 100%;
+    }
+
+    .navbar .btn {
+        margin-top: 10px;
+        width: 100%;
+    }
+
+    .mobile-nav a {
+        padding: 12px;
+        text-align: center;
+    }
+
+    /* Asegurarse de ocultar los inputs en la vista móvil cuando no se activa el menú */
+    .mobile-nav input {
+        display: block; /* Asegura que los inputs estén disponibles solo en el menú móvil */
     }
 }
-
 
