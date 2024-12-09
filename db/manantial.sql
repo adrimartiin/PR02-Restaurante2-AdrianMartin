@@ -91,11 +91,16 @@ CREATE TABLE tbl_reserva (
 
 /* INSERTS */
 
+/* TABLA ROL*/
+INSERT INTO tbl_rol (id_rol, nombre_rol) VALUES 
+(1, 'Administrador'),
+(2, 'Camarero');
+
 /* INSERT USUARIOS LOGIN*/
 -- PARA TODOS LA PWD ES qweQWE123
 -- Administrador
 INSERT INTO tbl_usuario (nombre_usuario, nombre_real_usuario, password_usuario, id_rol) VALUES 
-('admin', 'Administrador General', '$2a$12$HIM6AtoZ8QuG4kxjfnuBEuDgEAEqKI59w1ZyfEqI3zQtZh8X.AdP2', 1);
+('admin', 'Administrador', '$2a$12$HIM6AtoZ8QuG4kxjfnuBEuDgEAEqKI59w1ZyfEqI3zQtZh8X.AdP2', 1);
 
 -- Camareros
 INSERT INTO tbl_usuario (nombre_usuario, nombre_real_usuario, password_usuario, id_rol) VALUES 
@@ -132,20 +137,28 @@ INSERT INTO tbl_estado_silla (estado) VALUES
 ('Reservada');
 
 /* MESAS */
--- Mesas en cada sala, solo una por sala
-INSERT INTO tbl_mesa (id_sala, num_sillas_mesa, estado_mesa) VALUES
+-- Mesas en cada sala con un máximo de 8 mesas por sala y variación de sillas
+
 -- Terrazas
-(1, 4, 'libre'), -- Mesa para Terraza Norte
-(2, 6, 'libre'), -- Mesa para Terraza Sur
-(3, 4, 'libre'), -- Mesa para Terraza Este
+INSERT INTO tbl_mesa (id_sala, num_sillas_mesa, estado_mesa) VALUES
+(1, 4, 'libre'), (1, 4, 'libre'), (1, 4, 'libre'), (1, 4, 'libre'), 
+(1, 6, 'libre'), (1, 6, 'libre'), (1, 6, 'libre'), (1, 6, 'libre'), 
+(2, 6, 'libre'), (2, 6, 'libre'), (2, 6, 'libre'), (2, 6, 'libre'), 
+(2, 4, 'libre'), (2, 4, 'libre'), (2, 4, 'libre'), (2, 4, 'libre'), 
+(3, 4, 'libre'), (3, 4, 'libre'), (3, 4, 'libre'), (3, 4, 'libre'), 
+(3, 8, 'libre'), (3, 8, 'libre'), (3, 8, 'libre'), (3, 8, 'libre'), 
+
 -- Comedores
-(4, 8, 'libre'), -- Mesa para Comedor Principal
-(5, 10, 'libre'), -- Mesa para Comedor Secundario
--- Salas Privadas
-(6, 6, 'libre'), -- Mesa para Sala Privada VIP
-(7, 8, 'libre'), -- Mesa para Sala Privada Ejecutivo
-(8, 6, 'libre'), -- Mesa para Sala Privada Familiar
-(9, 10, 'libre'); -- Mesa para Sala Privada Eventos
+(4, 8, 'libre'), (4, 6, 'libre'), (4, 6, 'libre'), (4, 6, 'libre'),
+(4, 8, 'libre'), (4, 8, 'libre'), (4, 8, 'libre'), (4, 6, 'libre'), 
+(5, 10, 'libre'), (5, 8, 'libre'), (5, 8, 'libre'), (5, 8, 'libre'), 
+(5, 10, 'libre'), (5, 10, 'libre'), (5, 8, 'libre'), (5, 10, 'libre'), 
+
+-- Salas Privadas (máximo 1 mesa por sala, ya que son salas exclusivas)
+(6, 6, 'libre'), 
+(7, 8, 'libre'), 
+(8, 6, 'libre'), 
+(9, 10, 'libre'); 
 
 /* SILLAS */
 -- Cada mesa tiene sus sillas asignadas
