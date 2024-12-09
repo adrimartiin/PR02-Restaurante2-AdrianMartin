@@ -7,15 +7,16 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     exit();
 }
 
-$usuario_creado = false; // Variable para comprobar si el usuario fue creado
-$usuario_existente = false; // Variable para saber si el usuario ya existe
+// Inicializar variables de comprobación de creación de usuarios a false inicialmente
+$usuario_creado = false; 
+$usuario_existente = false; 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Recibe los datos del formulario
-    $nombre_usuario = $_POST['nombre_usuario'];
-    $nombre_real_usuario = $_POST['nombre_real_usuario'];
-    $password_usuario = $_POST['password_usuario'];
-    $id_rol = $_POST['id_rol'];
+    // Recibe los datos del formulario saneados
+    $nombre_usuario = htmlspecialchars($_POST['nombre_usuario']);
+    $nombre_real_usuario = htmlspecialchars($_POST['nombre_real_usuario']);
+    $password_usuario = htmlspecialchars($_POST['password_usuario']);
+    $id_rol = htmlspecialchars($_POST['id_rol']);
 
     // Comprobar si el nombre de usuario ya existe
     try {
@@ -28,7 +29,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Si existe un usuario con el mismo nombre de usuario o nombre real
             $usuario_existente = true;
         } else {
-            // Encriptar la contraseña antes de guardarla
             $password_usuario = password_hash($password_usuario, PASSWORD_BCRYPT);
 
             // Insertar el nuevo usuario en la base de datos
@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bindParam(':id_rol', $id_rol);
             $stmt->execute();
 
-            // Establecer la variable a true si el usuario fue creado exitosamente
+            // Establecer la variable a true si el usuario se crea correctamente
             $usuario_creado = true;
         }
 
@@ -95,10 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <a href="../admin/users.php" class="btn btn-secondary">Cancelar</a>
         </form>
     </div>
-
-    <!-- SweetAlert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <script src="../js/dashboard.js"></script>
     <script src="../js/navbar.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -106,7 +103,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         crossorigin="anonymous"></script>
 
     <script>
-        // Verificar si el usuario fue creado exitosamente
         <?php if ($usuario_creado): ?>
             Swal.fire({
                 title: 'Usuario creado!',
@@ -114,11 +110,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 icon: 'success',
                 confirmButtonText: 'Aceptar'
             }).then(function () {
-                window.location.href = '../admin/users.php'; // Redirige a la página de usuarios
+                window.location.href = '../admin/users.php';
             });
         <?php endif; ?>
 
-        // Verificar si el usuario ya existe
         <?php if ($usuario_existente): ?>
             Swal.fire({
                 title: 'Error!',

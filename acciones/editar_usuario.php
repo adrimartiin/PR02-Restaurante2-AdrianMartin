@@ -7,12 +7,12 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     exit();
 }
 
-$success = false;  // Variable para verificar si la actualización fue exitosa
+// Inicializo la variable que indica una actualización correcta a false
+$success = false;  
 
 if (isset($_GET['id'])) {
     $userId = $_GET['id'];
     try {
-        // Obtén los detalles del usuario
         $stmt = $conexion->prepare("SELECT * FROM tbl_usuario WHERE id_usuario = :id");
         $stmt->bindParam(':id', $userId);
         $stmt->execute();
@@ -29,17 +29,16 @@ if (isset($_GET['id'])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Recibe los datos del formulario
-    $nombre_usuario = $_POST['nombre_usuario'];
-    $nombre_real_usuario = $_POST['nombre_real_usuario'];
-    $password_usuario = $_POST['password_usuario'];
-    $id_rol = $_POST['id_rol'];
+    // Recibe los datos del formulario saneados
+    $nombre_usuario = htmlspecialchars($_POST['nombre_usuario']);
+    $nombre_real_usuario = htmlspecialchars($_POST['nombre_real_usuario']);
+    $password_usuario = htmlspecialchars($_POST['password_usuario']);
+    $id_rol = htmlspecialchars($_POST['id_rol']);
 
-    // Si se cambia la contraseña, la encriptamos
+    
     if (!empty($password_usuario)) {
         $password_usuario = password_hash($password_usuario, PASSWORD_BCRYPT);
     } else {
-        // Si la contraseña no se cambia, dejamos la original
         $password_usuario = $user['password_usuario'];
     }
 
@@ -70,7 +69,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Editar Usuario</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <!-- SweetAlert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
@@ -112,7 +110,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </form>
     </div>
 
-    <!-- Script SweetAlert para mostrar el mensaje de éxito -->
     <?php if ($success): ?>
         <script>
             Swal.fire({
