@@ -29,12 +29,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['loggedin'] = true;
                 $_SESSION['usuario_id'] = $usuario['id_usuario'];
                 $_SESSION['nombre_usuario'] = $usuario['nombre_usuario'];
+                $_SESSION['rol_id'] = $usuario['id_rol'];
 
                 unset($_SESSION['nombre_usuario']);
                 unset($_SESSION['pwd']);
                 unset($_SESSION['error']);
 
-                header("Location: ../procesos/procDashboard.php");
+                
+                
+                if ($usuario['nombre_usuario'] === 'admin') {
+                    header("Location: ../admin/dashboardAdmin.php");
+                } else {
+                    header("Location: ../procesos/procDashboard.php");
+                }
                 exit();
             } else {
                 $_SESSION['error'] = "Los datos introducidos son incorrectos.";
@@ -55,5 +62,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     header("Location: ../public/login.php");
     exit();
 }
+
 
 
