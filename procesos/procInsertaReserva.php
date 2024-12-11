@@ -1,5 +1,3 @@
-    
-    <!-- <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script> -->
     <?php
     session_start();
     include_once '../db/conexion.php';
@@ -11,6 +9,10 @@
         $dia_reserva = htmlspecialchars($_POST['dia_reserva']);
         $num_personas = htmlspecialchars($_POST['num_personas']);
         $mesa_id = htmlspecialchars($_SESSION['id_mesa']);
+        $sala_id = htmlspecialchars($_POST['id_sala']); 
+        $turno = htmlspecialchars($_POST['nombre_turno']);
+        
+        
 
         // Query con placeholders con nombre
         $query = "
@@ -39,7 +41,18 @@
 
         // Verificar si hay resultados
         if ($stmt->rowCount() > 0) {
-            echo "Ya existe una reserva en esta franja horaria";
+            // Si existe, error de hay reserva mediante sweet alert
+            $_SESSION['hay_reserva'] = true;
+            ?>
+             <form action="procReserva.php" method="post" name="regreso">
+                    <input type="hidden" name="nombre_turno" value="<? echo $turno; ?>" />
+                    <input type="hidden" name="mesa_id" value="<? echo $mesa_id; ?>" /> 
+                    <input type="hidden" name="id_sala" value="<? echo $sala_id; ?>" /> 
+                </form>
+                <script>
+                    document.regreso.submit();  
+                </script>
+            <?php
         } else {
             // Insertar la nueva reserva en tbl_reserva
             $insertQuery = "
@@ -56,12 +69,18 @@
             $insertStmt->bindParam(':hora_inicio', $hora_inicio, PDO::PARAM_STR);
             $insertStmt->bindParam(':hora_fin', $hora_fin, PDO::PARAM_STR);
 
-            // Comentar con algún profe hoy
-            /* Cuando hago un header location conforme se ha hecho la reserva en gestion_salas.php 
-            entra en el error del primer if*/
             // FALTAN SWEET ALERTS
             if ($insertStmt->execute()) {
-                echo "Reserva realizada";
+                $_SESSION['reserva_done'] = true;
+                ?>
+                <form action="procDashboard.php" method="post" name="regreso">
+                    <input type="hidden" name="mesa_id" value="<? echo $mesa_id; ?>" /> 
+                    <input type="hidden" name="sala" value="<? echo $sala_id; ?>" /> 
+                </form>
+                <script>
+                    document.regreso.submit();  
+                </script>
+                <?php
             } else {
                 echo "Error al realizar la reserva";
             }
