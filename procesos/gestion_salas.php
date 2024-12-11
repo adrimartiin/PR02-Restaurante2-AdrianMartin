@@ -3,7 +3,6 @@ session_start();
 include_once '../db/conexion.php';
 ?>
 
-
 <html lang="en">
 
 <head>
@@ -80,7 +79,7 @@ include_once '../db/conexion.php';
                         <tr>
                             <th>ID Mesa</th>
                             <th>Número de Sillas</th>
-                            <th>Estado</th>
+                            <th>Reservar</th>
                         </tr>
                       </thead>";
                 echo "<tbody>";
@@ -91,12 +90,14 @@ include_once '../db/conexion.php';
                     $num_sillas_mesa = htmlspecialchars($row['num_sillas_mesa']);
                     $estado_mesa = htmlspecialchars($row['estado_mesa']);
 
-                    echo "<form action='./procReservaMesa.php' method='post'>";
+                    echo "<form action='./procTurnos.php' method='post'>";
                     echo "<tr>
                             <td>{$id_mesa}</td>
                             <td>{$num_sillas_mesa}</td>
-                            <td>{$estado_mesa}</td>
-                            <td><button type='submit' name='reservar' class='btn btn-primary'>Reservar</button></td>
+                            <td>
+                                <input type='hidden' name='id_mesa' value='{$id_mesa}'>
+                                <button type='submit' name='reservar' class='btn btn-primary'>Reservar</button>
+                            </td>
                           </tr>";
                     echo "</form>";
                 }
