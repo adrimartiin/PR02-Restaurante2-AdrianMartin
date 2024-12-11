@@ -4,7 +4,9 @@ include_once '../db/conexion.php';
 
 // Recoger del formulario la mesa que se quiere enviar
 $id_mesa = htmlspecialchars($_POST['id_mesa']);
+$id_sala = htmlspecialchars($_POST['id_sala']);
 $_SESSION['id_mesa'] = $id_mesa;
+
 
 ?>
 
@@ -36,6 +38,7 @@ $_SESSION['id_mesa'] = $id_mesa;
                     }
                     ?>
                 </select><br>
+                <input type="hidden" name="id_sala" value="<?php echo $id_sala; ?>">
                 <button type="submit" name="reservar" id="reservar">Ir a Reserva</button>
             </form>
         </div>

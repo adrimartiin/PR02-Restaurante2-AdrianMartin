@@ -1,8 +1,14 @@
 <?php
 session_start();
 include_once '../db/conexion.php';
-
+if (isset($_SESSION['hay_reserva'])) {
+    echo '<script> let hay_reserva = true</script>';
+    unset($_SESSION['hay_reserva']);
+}
 $turno = htmlspecialchars($_POST['nombre_turno']);
+
+$id_sala = htmlspecialchars($_POST['id_sala']);
+$mesa_id = htmlspecialchars($_SESSION['id_mesa']);
 
 ?>
 
@@ -14,7 +20,8 @@ $turno = htmlspecialchars($_POST['nombre_turno']);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.min.css" integrity="sha256-qWVM38RAVYHA4W8TAlDdszO1hRaAq0ME7y2e9aab354=" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/formReserva.css">
     <title>Reserva Mesas</title>
 </head>
@@ -79,23 +86,35 @@ $turno = htmlspecialchars($_POST['nombre_turno']);
 
                 <label for="num_personas">Número de Personas</label>
                 <select id='num_personas' name="num_personas">
-                <option value=''>Selecciona un número de personas</option>
-                <?php
-                
-                for($i=1; $i<16; $i++){
-                    if($i == 1){
-                        echo "<option value='$i'>$i Persona</option>";
-                    } else {
-                        echo "<option value='$i'>$i Personas</option>";
+                    <option value=''>Selecciona un número de personas</option>
+                    <?php
+
+                    for ($i = 1; $i < 16; $i++) {
+                        if ($i == 1) {
+                            echo "<option value='$i'>$i Persona</option>";
+                        } else {
+                            echo "<option value='$i'>$i Personas</option>";
+                        }
                     }
-                }
-                
-                ?>
+
+                    ?>
                 </select><br>
+                <input type="hidden" name="nombre_turno" value="<?php echo $turno; ?>">
+                <input type="hidden" name="id_sala" value="<?php echo $id_sala; ?>">
                 <button type="submit" name="reservar" id="reservar">Reservar</button>
             </form>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js" integrity="sha256-1m4qVbsdcSU19tulVTbeQReg0BjZiW6yGffnlr/NJu4=" crossorigin="anonymous"></script>
+    <script>
+        if (typeof hay_reserva !== 'undefined' && hay_reserva) {
+            Swal.fire({
+                icon: "error",
+                title: "Error!",
+                text: "Ya existe una reserva en esta franja horaria"
+            });
+        }
+    </script>
 </body>
 
 </html>

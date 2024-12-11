@@ -7,6 +7,12 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     exit();
 }
 
+
+if (isset($_SESSION['reserva_done'])) {
+        echo '<script> let reserva = true</script>';
+        unset($_SESSION['reserva_done']);   
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -17,6 +23,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seleccionar sala</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.min.css"
+        integrity="sha256-qWVM38RAVYHA4W8TAlDdszO1hRaAq0ME7y2e9aab354=" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/dashboard.css">
     <link rel="shortcut icon" href="../img/icon.png" type="image/x-icon">
 </head>
@@ -86,8 +94,19 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         ?>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js"
+        integrity="sha256-1m4qVbsdcSU19tulVTbeQReg0BjZiW6yGffnlr/NJu4=" crossorigin="anonymous"></script>
     <script src="../js/dashboard.js"></script>
     <script src="../js/navbar.js"></script>
+    <script>
+        if(typeof reserva !== 'undefined' && reserva ) { 
+            Swal.fire({
+                title: 'Reserva realizada con éxito',
+                icon:'success',
+                confirmButtonText: 'Aceptar'
+            });
+        }
+    </script>
 </body>
 
 </html>

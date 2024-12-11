@@ -30,10 +30,10 @@ include_once '../db/conexion.php';
         </div>
     </div>
     <?php
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sala'])) {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' || isset($_POST['sala']) || isset($_POST['mesa_id'])) {
         // Recojo el campo del formulario saneado
         $sala = intval(htmlspecialchars($_POST['sala']));
-
+         
         // ===== QUERY PARA VER LA CAPACIDAD TOTAL DE LA SALA SELECCIONADA =====
         try {
             $sqlCapacidad = $conexion->prepare("SELECT capacidad_total FROM tbl_sala WHERE id_sala = :id_sala");
@@ -41,8 +41,9 @@ include_once '../db/conexion.php';
             $sqlCapacidad->execute();
             $res = $sqlCapacidad->fetch(PDO::FETCH_ASSOC);
 
-            if (isset($res)) {
-                echo "<h2 style='text-align: center;'>Capacidad total de la sala: " . htmlspecialchars($res['capacidad_total']) . "</h2>";
+            // Verificamos si la consulta devolvió un resultado
+            if ($res !== false && isset($res['capacidad_total'])) {
+                echo "<h2 style='text-align: center;'>Capacidad total de la sala: " . htmlspecialchars($res['capacidad_total'] ?? 'N/A') . "</h2>";
             } else {
                 echo "<h2 style='text-align: center;'>No se encontró capacidad para la sala seleccionada.</h2>";
             }
@@ -65,7 +66,7 @@ include_once '../db/conexion.php';
             ");
 
             // Enlazamos el parámetro de la sala
-            $sqlMesas->bindParam(':id_sala', $sala, PDO::PARAM_INT);
+            $sqlMesas->bindParam(':id_sala', $sala);
 
             // Ejecutamos la consulta
             $sqlMesas->execute();
@@ -86,9 +87,9 @@ include_once '../db/conexion.php';
 
                 // Iteramos sobre los resultados y los mostramos
                 while ($row = $sqlMesas->fetch(PDO::FETCH_ASSOC)) {
-                    $id_mesa = htmlspecialchars($row['id_mesa']);
-                    $num_sillas_mesa = htmlspecialchars($row['num_sillas_mesa']);
-                    $estado_mesa = htmlspecialchars($row['estado_mesa']);
+                    $id_mesa = htmlspecialchars($row['id_mesa'] ?? '');
+                    $num_sillas_mesa = htmlspecialchars($row['num_sillas_mesa'] ?? '');
+                    $estado_mesa = htmlspecialchars($row['estado_mesa'] ?? '');
 
                     echo "<form action='./procTurnos.php' method='post'>";
                     echo "<tr>
@@ -96,6 +97,7 @@ include_once '../db/conexion.php';
                             <td>{$num_sillas_mesa}</td>
                             <td>
                                 <input type='hidden' name='id_mesa' value='{$id_mesa}'>
+                                <input type='hidden' name='id_sala' value='{$sala}'>
                                 <button type='submit' name='reservar' class='btn btn-primary'>Reservar</button>
                             </td>
                           </tr>";
@@ -119,3 +121,4 @@ include_once '../db/conexion.php';
 </body>
 
 </html>
+

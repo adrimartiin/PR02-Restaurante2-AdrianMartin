@@ -18,11 +18,7 @@ if (isset($_GET['id'])) {
         $stmt->bindParam(':id', $userId);
         $stmt->execute();
 
-        // Eliminar reservas relacionadas con el usuario
-        $stmt = $conexion->prepare("DELETE FROM tbl_reserva WHERE id_usuario = :id");
-        $stmt->bindParam(':id', $userId);
-        $stmt->execute();
-
+  
         // Eliminar el usuario de la base de datos
         $stmt = $conexion->prepare("DELETE FROM tbl_usuario WHERE id_usuario = :id");
         $stmt->bindParam(':id', $userId);
@@ -43,3 +39,4 @@ if (isset($_GET['id'])) {
     exit();
 }
 ?>
+
