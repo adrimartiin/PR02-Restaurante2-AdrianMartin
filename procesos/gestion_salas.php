@@ -65,7 +65,7 @@ include_once '../db/conexion.php';
             ");
 
             // Enlazamos el parámetro de la sala
-            $sqlMesas->bindParam(':id_sala', $sala, PDO::PARAM_INT);
+            $sqlMesas->bindParam(':id_sala', $sala);
 
             // Ejecutamos la consulta
             $sqlMesas->execute();
