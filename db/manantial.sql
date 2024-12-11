@@ -1,16 +1,16 @@
-
+-- Crear base de datos
 CREATE DATABASE bd_restaurante;
 
-
+-- Usar la base de datos creada
 USE bd_restaurante;
 
-
+-- Crear tabla tipo_sala
 CREATE TABLE tbl_tipo_sala (
     id_tipo_sala INT AUTO_INCREMENT PRIMARY KEY,
     tipo_sala VARCHAR(30) NOT NULL UNIQUE
 );
 
-
+-- Crear tabla sala
 CREATE TABLE tbl_sala (
     id_sala INT AUTO_INCREMENT PRIMARY KEY,
     nombre_sala VARCHAR(50) NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE tbl_sala (
     FOREIGN KEY (id_tipo_sala) REFERENCES tbl_tipo_sala(id_tipo_sala)
 );
 
-
+-- Crear tabla mesa
 CREATE TABLE tbl_mesa (
     id_mesa INT AUTO_INCREMENT PRIMARY KEY,
     id_sala INT NOT NULL,
@@ -29,13 +29,13 @@ CREATE TABLE tbl_mesa (
     FOREIGN KEY (id_sala) REFERENCES tbl_sala(id_sala)
 );
 
-
+-- Crear tabla estado_silla
 CREATE TABLE tbl_estado_silla (
     id_estado_silla INT AUTO_INCREMENT PRIMARY KEY,
     estado VARCHAR(30) NOT NULL UNIQUE
 );
 
-
+-- Crear tabla silla
 CREATE TABLE tbl_silla (
     id_silla INT AUTO_INCREMENT PRIMARY KEY,
     id_mesa INT NOT NULL,
@@ -44,13 +44,13 @@ CREATE TABLE tbl_silla (
     FOREIGN KEY (id_estado_silla) REFERENCES tbl_estado_silla(id_estado_silla)
 );
 
-
+-- Crear tabla rol
 CREATE TABLE tbl_rol (
     id_rol INT AUTO_INCREMENT PRIMARY KEY,
     nombre_rol VARCHAR(50) NOT NULL UNIQUE
 );
 
-
+-- Crear tabla usuario
 CREATE TABLE tbl_usuario (
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
     nombre_usuario VARCHAR(50) NOT NULL,
@@ -60,7 +60,7 @@ CREATE TABLE tbl_usuario (
     FOREIGN KEY (id_rol) REFERENCES tbl_rol(id_rol)
 );
 
-
+-- Crear tabla ocupacion
 CREATE TABLE tbl_ocupacion (
     id_ocupacion INT AUTO_INCREMENT PRIMARY KEY,
     id_mesa INT NOT NULL,
@@ -72,22 +72,25 @@ CREATE TABLE tbl_ocupacion (
 );
 
 
-CREATE TABLE tbl_estado_reserva (
-    id_estado_reserva INT AUTO_INCREMENT PRIMARY KEY,
-    estado VARCHAR(30) NOT NULL UNIQUE
-);
-
-
+-- Crear tabla reserva
 CREATE TABLE tbl_reserva (
     id_reserva INT AUTO_INCREMENT PRIMARY KEY,
-    id_usuario INT NOT NULL, 
+    id_mesa INT NOT NULL,
     fecha_reserva DATE NOT NULL,
     hora_inicio TIME NOT NULL,
     hora_fin TIME NOT NULL,
     id_estado_reserva INT NOT NULL,
-    FOREIGN KEY (id_usuario) REFERENCES tbl_usuario(id_usuario),
-    FOREIGN KEY (id_estado_reserva) REFERENCES tbl_estado_reserva(id_estado_reserva)
+    FOREIGN KEY (id_mesa) REFERENCES tbl_mesa(id_mesa)
 );
+
+CREATE TABLE tbl_turnos (
+    id_turno INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_turno VARCHAR(50) NOT NULL,
+    id_reserva INT NOT NULL, 
+    FOREIGN KEY (id_reserva) REFERENCES tbl_reserva(id_reserva) 
+);
+
+
 
 /* INSERTS */
 
@@ -181,6 +184,13 @@ INSERT INTO tbl_silla (id_mesa, id_estado_silla) VALUES
 (8, 3), (8, 3), (8, 3), (8, 3), (8, 3), (8, 3),
 -- Sillas para Mesa 9 (Sala Privada Eventos)
 (9, 1), (9, 1), (9, 1), (9, 1), (9, 1), (9, 1), (9, 1), (9, 1), (9, 1), (9, 1);
+
+/* tabla turnos */
+INSERT INTO tbl_turnos (nombre_turno)
+VALUES 
+('Mediodía'),
+('Noche');
+
 
 
 

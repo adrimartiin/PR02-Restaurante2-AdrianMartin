@@ -1,0 +1,99 @@
+/* Estilos principales */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    /* Fondo suave */
+    color: #333;
+}
+
+/* Contenedor principal */
+.container-reservas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* Ocupa el 100% de la altura de la ventana */
+    width: 100vw;
+    /* Ocupa el 100% del ancho de la ventana */
+    background-image: url('../images/restaurant-background.jpg');
+    /* Imagen de fondo */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-blend-mode: overlay;
+}
+
+/* Contenedor interno */
+.container-dentro {
+    background: rgba(255, 255, 255, 0.9);
+    /* Fondo blanco con transparencia */
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Sombra sutil */
+    max-width: 400px;
+    width: 90%;
+    /* Se adapta a pantallas pequeñas */
+    text-align: center;
+}
+
+/* Encabezado del formulario */
+.container-dentro h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #28a745;
+    /* Verde para destacar */
+    margin-bottom: 1.5rem;
+}
+
+/* Estilo del formulario */
+form label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+form input,
+form select {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+form button {
+    width: 100%;
+    padding: 0.7rem;
+    background-color: #28a745;
+    /* Verde para acción */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #218838;
+    /* Verde más oscuro */
+}
+
+/* Ajustes para dispositivos pequeños */
+@media (max-width: 768px) {
+    .container-dentro {
+        padding: 1.5rem;
+    }
+
+    .container-dentro h3 {
+        font-size: 1.2rem;
+    }
+
+    form button {
+        font-size: 0.9rem;
+    }
+}
