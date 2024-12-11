@@ -13,11 +13,11 @@ function validaNombreUser() {
         errorNombreUsuario.innerHTML = "El nombre de usuario es obligatorio.";
         inputNombreUsuario.classList.add("error-border");
         return false;
-    }
-
-    errorNombreUsuario.innerHTML = "";
-    inputNombreUsuario.classList.remove("error-border");
-    return true;
+    } else {
+        errorNombreUsuario.innerHTML = "";
+        inputNombreUsuario.classList.remove("error-border");
+        return true;
+    }  
 }
 
 function validaRealUser() {
@@ -29,11 +29,11 @@ function validaRealUser() {
         errorRealName.innerHTML = "El nombre real es obligatorio.";
         inputRealName.classList.add("error-border");
         return false;
+    } else {
+        errorRealName.innerHTML = "";
+        inputRealName.classList.remove("error-border");
+        return true;
     }
-
-    errorRealName.innerHTML = "";
-    inputRealName.classList.remove("error-border");
-    return true;
 }
 
 function validaPwd() {
@@ -45,11 +45,11 @@ function validaPwd() {
         errorPassword.innerHTML = "La contraseña es obligatoria.";
         inputPassword.classList.add("error-border");
         return false;
+    } else {
+        errorPassword.innerHTML = "";
+        inputPassword.classList.remove("error-border");
+        return true;
     }
-
-    errorPassword.innerHTML = "";
-    inputPassword.classList.remove("error-border");
-    return true;
 }
 
 function validaRole() {
@@ -60,11 +60,11 @@ function validaRole() {
         errorRole.innerHTML = "Debe seleccionar un rol.";
         document.getElementById("id_rol").classList.add("error-border");
         return false;
-    }
-
-    errorRole.innerHTML = "";
-    document.getElementById("id_rol").classList.remove("error-border");
-    return true;
+    } else {
+        errorRole.innerHTML = "";
+        document.getElementById("id_rol").classList.remove("error-border");
+        return true;
+    } 
 }
 
 function validaFormulario(event) {
