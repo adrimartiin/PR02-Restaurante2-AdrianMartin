@@ -18,17 +18,18 @@ if (isset($sala_seleccionada)) {
     // Consulta para obtener las salas según el tipo de sala que se ha seleccionado
     $query = $conexion->prepare("
         SELECT 
-            tbl_sala.id_sala, 
-            tbl_sala.nombre_sala, 
-            tbl_tipo_sala.tipo_sala 
+            s.id_sala, 
+            s.nombre_sala, 
+            t.tipo_sala, 
+            s.imagen_sala
         FROM 
-            tbl_sala
+            tbl_sala AS s
         INNER JOIN 
-            tbl_tipo_sala
+            tbl_tipo_sala AS t
         ON 
-            tbl_sala.id_tipo_sala = tbl_tipo_sala.id_tipo_sala
+            s.id_tipo_sala = t.id_tipo_sala
         WHERE 
-            tbl_tipo_sala.tipo_sala = :tipo_sala
+            t.tipo_sala = :tipo_sala
     ");
     $query->bindParam(':tipo_sala', $sala_seleccionada);
     $query->execute();
@@ -36,6 +37,7 @@ if (isset($sala_seleccionada)) {
 } 
 ?>
 
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -79,26 +81,10 @@ if (isset($sala_seleccionada)) {
         foreach ($salas as $index => $sala) {
             $tipo_sala = $sala['tipo_sala'];
             $nombre_sala = $sala['nombre_sala'];
+            $imagen_sala = $sala['imagen_sala'];
             $id_sala = $sala['id_sala'];
-            $background_class = '';
-
-            // Asignar clases dinámicas según el tipo de sala
-            switch ($tipo_sala) {
-                case 'Terraza':
-                    $background_class = 'terraza' . (($index % 3) + 1); // coge las clases que hay en el css
-                    break;
-                case 'Comedor':
-                    $background_class = 'comedor' . (($index % 3) + 1); // coge las clases que hay en el css
-                    break;
-                case 'Sala Privada':
-                    $background_class = 'privada' . (($index % 4) + 1); // coge las clases que hay en el css
-                    break;
-                default:
-                    $background_class = 'default';
-                    break;
-            }
             ?>
-            <div class="option <?php echo htmlspecialchars($background_class); ?>">
+            <div class="option fondo" style="background-image: url('..<?php echo $imagen_sala; ?>');">
                 <h2><?php echo htmlspecialchars($nombre_sala); ?></h2>
                 <div class="button-container">
                     <button type="submit" name="sala" value="<?php echo htmlspecialchars($id_sala); ?>"
@@ -114,3 +100,4 @@ if (isset($sala_seleccionada)) {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="../js/dashboard.js"></script>
 </html>
+
