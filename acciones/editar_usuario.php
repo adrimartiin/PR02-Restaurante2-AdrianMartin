@@ -106,8 +106,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         echo "<option value='{$rol['id_rol']}' $selected>{$rol['nombre_rol']}</option>";
                     }
                     ?>
-                    <span class="error-message" id="error_rol"></span>
                 </select>
+                <span class="error-message" id="error_rol"></span>
             </div>
             <button type="submit" class="btn btn-primary">Actualizar</button>
             <a href="../admin/users.php" class="btn btn-secondary">Cancelar</a>

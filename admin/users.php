@@ -31,9 +31,8 @@ include_once 'filtros.php';
             <img src="../img/icon.png" class="icon" alt="Icono">
         </a>
 
-        <!-- Icono de menú hamburguesa (solo visible en pantallas pequeñas) -->
         <div id="hamburger-icon" class="d-block d-md-none">
-            <i class="fas fa-bars"></i> <!-- Icono de hamburguesa de FontAwesome -->
+            <i class="fas fa-bars"></i> 
         </div>
 
         <form class="d-flex align-items-center" method="GET" action="">
@@ -42,9 +41,9 @@ include_once 'filtros.php';
             <button type="submit" class="btn btn-primary btn-sm me-3">
                 <i class="fas fa-search"></i>
             </button>
-            <button type="reset" class="btn btn-danger">
+            <a href="./users.php" class="btn btn-danger">
                 <i class="fas fa-trash-alt"></i>
-            </button>
+            </a>
         </form>
 
         <div class="d-flex align-items-center">
