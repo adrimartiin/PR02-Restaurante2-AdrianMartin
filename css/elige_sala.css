@@ -120,42 +120,6 @@ body {
     background-color: #b97f52;
 }
 
-.option.comedor1 {
-    background-image: url('../img/salas/comedor2.jpeg');
-}
-
-.option.comedor2 {
-    background-image: url('../img/salas/comedor3.jpeg');
-}
-
-.option.terraza1 {
-    background-image: url('../img/salas/terraza1.jpeg');
-}
-
-.option.terraza2 {
-    background-image: url('../img/salas/terraza2.jpeg');
-}
-
-.option.terraza3 {
-    background-image: url('../img/salas/terraza3.jpeg');
-}
-
-.option.privada1 {
-    background-image: url('../img/salas/privada1.jpeg');
-}
-
-.option.privada2 {
-    background-image: url('../img/salas/privada2.jpeg');
-}
-
-.option.privada3 {
-    background-image: url('../img/salas/privada3.jpeg');
-}
-
-.option.privada4 {
-    background-image: url('../img/salas/privada4.jpeg');
-}
-
 .extra-buttons {
     display: none;
     justify-content: space-between;
