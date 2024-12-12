@@ -92,8 +92,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         echo "<option value='{$rol['id_rol']}'>{$rol['nombre_rol']}</option>";
                     }
                     ?>
-                    <span class="error-message" id="error_rol"></span>
                 </select>
+                <span class="error-message" id="error_rol"></span>
             </div>
             <button type="submit" class="btn btn-primary">Crear Usuario</button>
             <a href="../admin/users.php" class="btn btn-secondary">Cancelar</a>
@@ -101,7 +101,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../js/dashboard.js"></script>
-    <script src="../js/navbar.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
@@ -127,8 +126,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             });
         <?php endif; ?>
     </script>
-
-</body>
 <script src="../js/validaCrear.js"></script>
-
+</body>
 </html>
