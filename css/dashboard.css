@@ -164,6 +164,11 @@ body {
     background-size: cover;
     background-position: center;
 }
+.option.mesas {
+    background-image: url('../img/mesas_fondo.jpg');
+    background-size: cover;
+    background-position: center;
+}
 
 .extra-buttons {
     display: none;
@@ -218,6 +223,10 @@ body {
 }
 .error-border{
     border: 2px solid red !important;
+}
+
+#titulo{
+    text-align: center;
 }
 /* Estilo para el formulario */
 #formCamareros {
