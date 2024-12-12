@@ -52,16 +52,10 @@ include_once 'filtros.php';
     
     <h3 id="titulo">Gestión de Recursos</h3>
     <div class="options">
-        <div class="option comedor">
-            <h2>Tipos de Sala</h2>
-            <div class="button-container">
-                <a href="../gestiones/gestTipoSala.php" class="select-button">Seleccionar</a>
-            </div>
-        </div>
         <div class="option privadas">
             <h2>Salas</h2>
             <div class="button-container">
-                <a href="" class="select-button">Seleccionar</a>
+                <a href="../gestiones/gestionSalas.php" class="select-button">Seleccionar</a>
             </div>
         </div>
         <div class="option mesas">
