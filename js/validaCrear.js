@@ -17,7 +17,7 @@ function validaNombreUser() {
         errorNombreUsuario.innerHTML = "";
         inputNombreUsuario.classList.remove("error-border");
         return true;
-    }  
+    }
 }
 
 function validaRealUser() {
@@ -54,23 +54,26 @@ function validaPwd() {
 
 function validaRole() {
     let rol = document.getElementById("id_rol").value;
+    let inputRol = document.getElementById("id_rol");
     let errorRole = document.getElementById("error_rol");
 
-    if (rol === "" || rol === "0") {
+    // Asegurarse de que el rol no esté vacío
+    if (rol === "" || rol === null) {
         errorRole.innerHTML = "Debe seleccionar un rol.";
-        document.getElementById("id_rol").classList.add("error-border");
+        inputRol.classList.add("error-border");
         return false;
     } else {
-        errorRole.innerHTML = "";
-        document.getElementById("id_rol").classList.remove("error-border");
+        errorRole.innerHTML = "";  
+        inputRol.classList.remove("error-border");
         return true;
-    } 
+    }
 }
 
 function validaFormulario(event) {
-    event.preventDefault();
-    if(validaNombreUser() && validaRealUser() && validaPwd() && validaRole()){
+    event.preventDefault(); 
+    if (validaNombreUser() && validaRealUser() && validaPwd() && validaRole()) {
         document.getElementById("insertForm").submit();
     }
 }
+
 
