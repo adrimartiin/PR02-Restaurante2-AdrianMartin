@@ -2,14 +2,42 @@
 session_start();
 include_once '../db/conexion.php';
 
-// Verificar si el u    suario está logueado
+// Verificar si el usuario está logueado
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header("Location: ../index.php");
     exit();
 }
 
+// Obtener filtros desde GET
+$sala_filter = isset($_GET['sala']) ? $_GET['sala'] : '';
+$tipo_sala_filter = isset($_GET['tipo_sala']) ? $_GET['tipo_sala'] : '';
+
+// ==== QUERY PARA SACAR RESULTADOS FILTRADOS O SIN FILTRAR ====
+$sql = "SELECT tbl_sala.id_sala, tbl_sala.nombre_sala, tbl_sala.capacidad_total, tbl_sala.imagen_sala, tbl_tipo_sala.tipo_sala
+        FROM tbl_sala 
+        INNER JOIN tbl_tipo_sala ON tbl_sala.id_tipo_sala = tbl_tipo_sala.id_tipo_sala
+        WHERE (:sala = '' OR tbl_sala.id_sala = :sala) 
+        AND (:tipo_sala = '' OR tbl_tipo_sala.id_tipo_sala = :tipo_sala)
+        ORDER BY tbl_sala.nombre_sala ASC";
+$stmt = $conexion->prepare($sql);
+$stmt->bindValue(':sala', $sala_filter, PDO::PARAM_STR);
+$stmt->bindValue(':tipo_sala', $tipo_sala_filter, PDO::PARAM_STR);
+$stmt->execute();
+$resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Consultar para llenar los filtros
+$querySalas = "SELECT id_sala, nombre_sala FROM tbl_sala";
+$stmtSalas = $conexion->prepare($querySalas);
+$stmtSalas->execute();
+$salas = $stmtSalas->fetchAll(PDO::FETCH_ASSOC);
+
+$queryTipos = "SELECT id_tipo_sala, tipo_sala FROM tbl_tipo_sala";
+$stmtTipos = $conexion->prepare($queryTipos);
+$stmtTipos->execute();
+$tipos = $stmtTipos->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -20,7 +48,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/users.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <title>Usuarios</title>
+    <title>Gestión de Salas</title>
 </head>
 
 <body>
@@ -29,91 +57,79 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
             <img src="../img/icon.png" class="icon" alt="Icono">
         </a>
 
-        <div id="hamburger-icon" class="d-block d-md-none">
-            <i class="fas fa-bars"></i> 
-        </div>
-
         <form class="d-flex align-items-center" method="GET" action="">
-            <input type="text" name="usuario" class="form-control form-control-sm me-2" placeholder="Usuario">
-            <input type="text" name="nombre" class="form-control form-control-sm me-2" placeholder="Nombre">
+            <select name="tipo_sala" class="form-control form-control-sm me-2">
+                <option value="">Tipo de Sala</option>
+                <?php foreach ($tipos as $tipo): ?>
+                    <option value="<?= htmlspecialchars($tipo['id_tipo_sala']) ?>"
+                        <?= $tipo_sala_filter == $tipo['id_tipo_sala'] ? 'selected' : '' ?>>
+                        <?= htmlspecialchars($tipo['tipo_sala']) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+            <select name="sala" class="form-control form-control-sm me-2">
+                <option value="">Sala</option>
+                <?php foreach ($salas as $sala): ?>
+                    <option value="<?= htmlspecialchars($sala['id_sala']) ?>" <?= $sala_filter == $sala['id_sala'] ? 'selected' : '' ?>>
+                        <?= htmlspecialchars($sala['nombre_sala']) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
             <button type="submit" class="btn btn-primary btn-sm me-3">
                 <i class="fas fa-search"></i>
             </button>
-            <a href="./users.php" class="btn btn-danger">
+            <a href="gestionSalas.php" class="btn btn-danger">
                 <i class="fas fa-trash-alt"></i>
             </a>
         </form>
 
         <div class="d-flex align-items-center">
-        <form class="d-flex align-items-center" method="GET" action="">
             <a href="../acciones/crear_sala.php" class="btn btn-primary btn-sm me-3">Crear Sala</a>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                     data-bs-toggle="dropdown" aria-expanded="false">
-                    <?php echo $_SESSION['username']; ?>
+                    <?= htmlspecialchars($_SESSION['username']) ?>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li><a class="dropdown-item" href="../private/logout.php">Cerrar Sesión</a></li>
                 </ul>
             </div>
-            </form>
         </div>
     </div>
 
-    <!-- Menú para dispositivos móviles -->
-    <div class="mobile-nav" id="mobile-nav">
-        <input type="text" name="usuario" class="form-control form-control-sm me-2" placeholder="Usuario">
-            <input type="text" name="nombre" class="form-control form-control-sm me-2" placeholder="Nombre">
-            <button type="submit" class="btn btn-primary btn-sm me-3">
-                <i class="fas fa-search"></i>
-            </button>
-            <button type="reset" class="btn btn-danger">
-                <i class="fas fa-trash-alt"></i>
-            </button>
-        <a href="#"><?php echo $_SESSION['username']; ?></a>
-        <a href="../private/logout.php">Cerrar Sesión</a>
-    </div>
+    <h3 id="titulo">Gestión de Salas</h3>
 
-    <h3 id="titulo">Gestión de Usuarios</h3>
-
-    <?php
-    // ==== QUERY PARA SACAR LAS SALAS + EL TIPO DE SALA A LA QUE LE PERTENECEN
-    $sql = "SELECT * FROM tbl_sala INNER JOIN tbl_tipo_sala ON tbl_sala.id_tipo_sala = tbl_tipo_sala.id_tipo_sala";
-    $stmt = $conexion->prepare($sql);
-    $stmt->execute();
-    $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        echo "<table class='table table-striped table-hover'>";
-        echo "<thead>";
-        echo "<tr>";
-        echo "<th scope='col'>Nombre Sala</th>";
-        echo "<th scope='col'>Tipo Sala</th>";
-        echo "<th scope='col'>Capacidad Total</th>";
-        echo "<th scope='col'>Imagen</th>";
-        echo "<th scope='col'>Acciones</th>";
-        echo "</tr>";
-        echo "</thead>";
-        echo "<tbody>";
-
-        // Mostrar los resultados
-        foreach ($resultados as $row) {
-            echo "<tr>";
-            echo "<td scope='row'>" . htmlspecialchars($row['nombre_sala']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['tipo_sala']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['capacidad_total']) . "</td>";
-            echo "<td><img src='.." . $row['imagen_sala'] . "' width='100px' height='100px'></td>";
-            echo "<td>";
-            echo "<a href='../acciones/editar_sala.php?id=" . $row['id_sala'] . "' class='btn btn-warning btn-sm'>Editar</a> ";
-            echo "<a href='javascript:void(0);' class='btn btn-danger btn-sm' onclick='confirmDelete(" . $row['id_sala'] . ")'>Eliminar</a>";
-            echo "</td>";
-            echo "</tr>";
-        }
-
-        echo "</tbody>";
-        echo "</table>";
-    
- 
-    ?>
+    <?php if (!empty($resultados)): ?>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre Sala</th>
+                    <th scope="col">Tipo Sala</th>
+                    <th scope="col">Capacidad Total</th>
+                    <th scope="col">Imagen</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($resultados as $row): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($row['nombre_sala']) ?></td>
+                        <td><?= htmlspecialchars($row['tipo_sala']) ?></td>
+                        <td><?= htmlspecialchars($row['capacidad_total']) ?></td>
+                        <td><img src="..<?= htmlspecialchars($row['imagen_sala']) ?>" width="100" height="100"></td>
+                        <td>
+                            <a href="../acciones/editar_sala.php?id=<?= $row['id_sala'] ?>"
+                                class="btn btn-warning btn-sm">Editar</a>
+                            <a href="javascript:void(0);" class="btn btn-danger btn-sm"
+                                onclick="confirmDelete(<?= $row['id_sala'] ?>)">Eliminar</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <p>No se han encontrado resultados para este filtro.</p>
+    <?php endif; ?>
 
     <script src="../js/dashboard.js"></script>
     <script src="../js/navbar.js"></script>

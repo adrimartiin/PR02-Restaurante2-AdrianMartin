@@ -61,7 +61,7 @@ include_once 'filtros.php';
         <div class="option mesas">
             <h2>Mesas</h2>
             <div class="button-container">
-                <a href="" class="select-button">Seleccionar</a>
+                <a href="../gestiones/gestionMesas.php" class="select-button">Seleccionar</a>
             </div>
         </div>
     </div>
