@@ -14,7 +14,7 @@
         
         
 
-        // Query con placeholders con nombre
+        // ==== QUERY PARA VER SI HAY MESA YA RESERVADA EN UNA HORA O FRANJA HORARIA ====
         $query = "
             SELECT * 
             FROM tbl_reserva 

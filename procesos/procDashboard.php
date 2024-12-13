@@ -34,7 +34,7 @@ if (isset($_SESSION['reserva_done'])) {
         <a href="../index.php">
             <img src="../img/icon.png" class="icon" alt="Icono">
         </a>
-        <a href="./historial.php" class="right-link">Historial</a>
+        <a href="../public/historial.php" class="right-link">Historial</a>
         <div class="user-info">
             <div class="dropdown">
                 <i class="fas fa-caret-down" style="font-size: 16px; margin-right: 10px;"></i>
