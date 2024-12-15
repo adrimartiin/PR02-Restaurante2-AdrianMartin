@@ -29,7 +29,7 @@ $mesa_id = htmlspecialchars($_SESSION['id_mesa']);
 <body>
     <div class="container-reservas">
         <div class="container-dentro">
-            <form action="procInsertaReserva.php" method="post">
+            <form action="procInsertaReserva.php" method="post" id="formReserva">
                 <h3>Reservar</h3>
                 <label for="hora_inicio">Hora de la Reserva</label>
                 <select id="hora_inicio" name="hora_inicio">
@@ -55,6 +55,7 @@ $mesa_id = htmlspecialchars($_SESSION['id_mesa']);
                     }
                     ?>
                 </select><br>
+                <span id="error_hora_inicio" class="error-message"></span>
 
                 <label for="hora_final">Hora final de la Reserva</label>
                 <select id="hora_final" name="hora_final">
@@ -80,9 +81,11 @@ $mesa_id = htmlspecialchars($_SESSION['id_mesa']);
                     }
                     ?>
                 </select><br>
+                <span id="error_hora_final" class="error-message"></span>
 
                 <label for="dia_reserva">Día de la reserva</label>
                 <input type="date" id="dia_reserva" name="dia_reserva"><br>
+                <span id="error_diaReserva" class="error-message"></span>
 
                 <label for="num_personas">Número de Personas</label>
                 <select id='num_personas' name="num_personas">
@@ -99,6 +102,8 @@ $mesa_id = htmlspecialchars($_SESSION['id_mesa']);
 
                     ?>
                 </select><br>
+                <span id="error_numPersonas" class="error-message"></span>
+
                 <input type="hidden" name="nombre_turno" value="<?php echo $turno; ?>">
                 <input type="hidden" name="id_sala" value="<?php echo $id_sala; ?>">
                 <button type="submit" name="reservar" id="reservar">Reservar</button>
@@ -115,6 +120,7 @@ $mesa_id = htmlspecialchars($_SESSION['id_mesa']);
             });
         }
     </script>
+    <script src="../js/validaReserva.js"></script>
 </body>
 
 </html>
