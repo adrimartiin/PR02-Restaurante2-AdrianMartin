@@ -59,14 +59,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="container mt-5">
         <h2>Crear Nueva Sala</h2>
-        <form method="POST" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data" id="crearSalaForm">
             <div class="mb-3">
                 <label for="nombre_sala" class="form-label">Nombre de Sala</label>
                 <input type="text" class="form-control" id="nombre_sala" name="nombre_sala">
+                <span class="error-message" id="error_nombre_sala"></span>
             </div>
             <div class="mb-3">
                 <label for="id_tipo_sala" class="form-label">Tipo de Sala</label>
                 <select class="form-select" id="id_tipo_sala" name="id_tipo_sala">
+                    <option value="">Seleccione un tipo de sala</option>
                     <?php
                     $stmt = $conexion->query("SELECT * FROM tbl_tipo_sala");
                     $tipos_sala = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -75,18 +77,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     }
                     ?>
                 </select>
+                <span class="error-message" id="error_tipo_sala"></span>
             </div>
             <div class="mb-3">
                 <label for="capacidad_total" class="form-label">Capacidad Total</label>
                 <input type="number" class="form-control" id="capacidad_total" name="capacidad_total">
+                <span class="error-message" id="error_capacidad_total"></span>
             </div>
             <div class="mb-3">
                 <label for="num_mesas_sala" class="form-label">Número de Mesas</label>
                 <input type="number" class="form-control" id="num_mesas_sala" name="num_mesas_sala">
+                <span class="error-message" id="error_num_mesas"></span>
             </div>
             <div class="mb-3">
                 <label for="imagen_sala" class="form-label">Imagen de Sala</label>
                 <input type="file" class="form-control" id="imagen_sala" name="imagen_sala" accept="image/*">
+                <span class="error-message" id="error_img"></span>
             </div>
             <button type="submit" class="btn btn-primary">Crear Sala</button>
             <a href="../admin/salas.php" class="btn btn-secondary">Cancelar</a>
@@ -118,6 +124,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             });
         <?php endif; ?>
     </script>
+    <script src="../js/validaCrearSala.js"></script>
 </body>
-
 </html>

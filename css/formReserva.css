@@ -83,6 +83,13 @@ form button:hover {
     /* Verde más oscuro */
 }
 
+.error-message{
+    color: red;
+}
+.error-border{
+    border: 2px solid red !important;
+}
+
 /* Ajustes para dispositivos pequeños */
 @media (max-width: 768px) {
     .container-dentro {

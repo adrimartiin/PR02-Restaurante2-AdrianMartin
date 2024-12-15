@@ -63,6 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="../css/users.css">
     <title>Editar Mesa</title>
 </head>
 
@@ -72,7 +73,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <form method="POST" id="edit_form">
             <div class="mb-3">
                 <label for="num_sillas_mesa" class="form-label">Número de Sillas</label>
-                <input type="number" name="num_sillas_mesa" id="num_sillas_mesa" class="form-control" value="<?= htmlspecialchars($mesa['num_sillas_mesa']) ?>" required>
+                <input type="number" name="num_sillas_mesa" id="num_sillas_mesa" class="form-control" value="<?= htmlspecialchars($mesa['num_sillas_mesa']) ?>">
+                <span class="error-message" id="error_num_sillas"></span>
             </div>
             <div class="mb-3">
                 <label for="id_sala" class="form-label">Sala</label>
@@ -84,6 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </option>
                     <?php endforeach; ?>
                 </select>
+                <span class="error-message" id="error_id_sala"></span>
             </div>
             <button type="submit" class="btn btn-primary">Guardar Cambios</button>
             <a href="../gestiones/gestionMesas.php" class="btn btn-secondary">Cancelar</a>
@@ -113,6 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif;?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/validaEditarMesa.js"></script>
 </body>
 
 </html>
