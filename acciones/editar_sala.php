@@ -121,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <span class="error-message" id="error_imagen"></span>
             </div>
             <button type="submit" class="btn btn-primary">Actualizar Sala</button>
-            <a href="../admin/dashboardAdmin.php" class="btn btn-secondary">Cancelar</a>
+            <a href="../gestiones/gestionSalas.php" class="btn btn-secondary">Cancelar</a>
         </form>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js" integrity="sha256-1m4qVbsdcSU19tulVTbeQReg0BjZiW6yGffnlr/NJu4=" crossorigin="anonymous"></script>

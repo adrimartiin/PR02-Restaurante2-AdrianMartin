@@ -107,6 +107,7 @@ $mesa_id = htmlspecialchars($_SESSION['id_mesa']);
                 <input type="hidden" name="nombre_turno" value="<?php echo $turno; ?>">
                 <input type="hidden" name="id_sala" value="<?php echo $id_sala; ?>">
                 <button type="submit" name="reservar" id="reservar">Reservar</button>
+                <a href="./procDashboard.php" class="btn btn-primary">Cancelar</a>
             </form>
         </div>
     </div>

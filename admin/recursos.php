@@ -27,7 +27,7 @@ include_once 'filtros.php';
 
 <body>
     <div class="navbar">
-        <a href="../index.php">
+        <a href="./dashboardAdmin.php">
             <img src="../img/icon.png" class="icon" alt="Icono">
         </a>
         <div class="user-info">

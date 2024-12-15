@@ -16,7 +16,7 @@ include_once '../db/conexion.php';
 
 <body>
     <div class="navbar">
-        <a href="../index.php">
+        <a href="./procDashboard.php">
             <img src="../img/icon.png" class="icon" alt="Icono">
         </a>
         <div class="user-info">
