@@ -81,23 +81,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.min.css" integrity="sha256-qWVM38RAVYHA4W8TAlDdszO1hRaAq0ME7y2e9aab354=" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/users.css">
     <title>Editar Sala</title>
 </head>
 <body>
     <div class="container mt-5">
         <h2>Editar Sala</h2>
-        <form method="POST" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data" id="editar_sala_form">
             <div class="mb-3">
                 <label for="nombre_sala" class="form-label">Nombre de la Sala</label>
-                <input type="text" name="nombre_sala" class="form-control" id="nombre_sala" value="<?= htmlspecialchars($sala['nombre_sala']) ?>" required>
+                <input type="text" name="nombre_sala" class="form-control" id="nombre_sala" value="<?= htmlspecialchars($sala['nombre_sala']) ?>">
+                <span class="error-message" id="error_nombre"></span>
             </div>
             <div class="mb-3">
                 <label for="capacidad_total" class="form-label">Capacidad Total</label>
-                <input type="number" name="capacidad_total" class="form-control" id="capacidad_total" value="<?= htmlspecialchars($sala['capacidad_total']) ?>" required>
+                <input type="number" name="capacidad_total" class="form-control" id="capacidad_total" value="<?= htmlspecialchars($sala['capacidad_total']) ?>">
+                <span class="error-message" id="error_capacidad"></span>
             </div>
             <div class="mb-3">
                 <label for="id_tipo_sala" class="form-label">Tipo de Sala</label>
-                <select name="id_tipo_sala" id="id_tipo_sala" class="form-select" required>
+                <select name="id_tipo_sala" id="id_tipo_sala" class="form-select">
                     <?php
                     // Obtener los tipos de sala disponibles
                     $sql_tipos = "SELECT * FROM tbl_tipo_sala";
@@ -110,15 +113,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                     ?>
                 </select>
+                <span class="error-message" id="error_tipo_sala"></span>
             </div>
             <div class="mb-3">
                 <label for="imagen_sala" class="form-label">Imagen de la Sala</label>
-                <input type="file" name="imagen_sala" class="form-control" id="imagen_sala" required>
+                <input type="file" name="imagen_sala" class="form-control" id="imagen_sala">
+                <span class="error-message" id="error_imagen"></span>
             </div>
             <button type="submit" class="btn btn-primary">Actualizar Sala</button>
             <a href="../admin/dashboardAdmin.php" class="btn btn-secondary">Cancelar</a>
         </form>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js" integrity="sha256-1m4qVbsdcSU19tulVTbeQReg0BjZiW6yGffnlr/NJu4=" crossorigin="anonymous"></script>
+    <script src="../js/validaEditarSala.js"></script>
 </body>
 </html>

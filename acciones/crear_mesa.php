@@ -60,24 +60,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="../css/users.css">
     <title>Crear Mesa</title>
 </head>
 
 <body>
     <div class="container mt-5">
         <h2>Crear Nueva Mesa</h2>
-        <form method="POST">
+        <form method="POST" id="formCreaMesa">
             <div class="mb-3">
                 <label for="numero_mesa" class="form-label">Número de Mesa</label>
-                <input type="number" class="form-control" id="numero_mesa" name="numero_mesa" required>
+                <input type="number" class="form-control" id="numero_mesa" name="numero_mesa">
+                <span class="error-message" id="error_numero_mesa"></span>
             </div>
             <div class="mb-3">
                 <label for="num_sillas_mesa" class="form-label">Número de Sillas</label>
-                <input type="number" class="form-control" id="num_sillas_mesa" name="num_sillas_mesa" required>
+                <input type="number" class="form-control" id="num_sillas_mesa" name="num_sillas_mesa">
+                <span class="error-message" id="error_num_sillas_mesa"></span>
             </div>
             <div class="mb-3">
                 <label for="id_sala" class="form-label">Sala</label>
-                <select class="form-select" id="id_sala" name="id_sala" required>
+                <select class="form-select" id="id_sala" name="id_sala">
                     <option value="">Seleccione una sala</option>
                     <?php
                     $stmt = $conexion->query("SELECT id_sala, nombre_sala FROM tbl_sala");
@@ -87,6 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     }
                     ?>
                 </select>
+                <span class="error-message" id="error_id_sala"></span>
             </div>
             <button type="submit" class="btn btn-primary">Crear Mesa</button>
             <a href="../admin/dashboardAdmin.php" class="btn btn-secondary">Cancelar</a>
@@ -124,6 +128,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             });
         <?php endif; ?>
     </script>
+    <script src="../js/validaCrearMesa.js"></script>
 </body>
 
 </html>
