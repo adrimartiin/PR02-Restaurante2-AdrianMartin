@@ -93,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <span class="error-message" id="error_id_sala"></span>
             </div>
             <button type="submit" class="btn btn-primary">Crear Mesa</button>
-            <a href="../admin/dashboardAdmin.php" class="btn btn-secondary">Cancelar</a>
+            <a href="../gestiones/gestionMesas.php" class="btn btn-secondary">Cancelar</a>
         </form>
     </div>
 

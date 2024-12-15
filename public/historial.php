@@ -43,7 +43,7 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
 <div class="navbar">
-    <a href="../index.php">
+    <a href="../procesos/procDashboard.php">
         <img src="../img/icon.png" class="icon" alt="Icono">
     </a>
     <!-- Formulario para buscar por número de mesa -->

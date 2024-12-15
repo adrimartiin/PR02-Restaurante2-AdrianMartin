@@ -53,10 +53,10 @@ if (isset($sala_seleccionada)) {
 
 <body>
     <div class="navbar">
-        <a href="../index.php">
+        <a href="./procDashboard.php">
             <img src="../img/icon.png" class="icon" alt="Icono">
         </a>
-        <a href="./historial.php" class="right-link">Historial</a>
+        <a href="../public/historial.php" class="right-link">Historial</a>
         <div class="user-info">
             <div class="dropdown">
                 <i class="fas fa-caret-down" style="font-size: 16px; margin-right: 10px;"></i>

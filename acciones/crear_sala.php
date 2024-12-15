@@ -95,7 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <span class="error-message" id="error_img"></span>
             </div>
             <button type="submit" class="btn btn-primary">Crear Sala</button>
-            <a href="../admin/salas.php" class="btn btn-secondary">Cancelar</a>
+            <a href="../gestiones/gestionSalas.php" class="btn btn-secondary">Cancelar</a>
         </form>
     </div>
 
